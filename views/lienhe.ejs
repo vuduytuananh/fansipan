@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" lang="en-US" prefix="og: http://ogp.me/ns#">
+  <head>
+    <title>Liên hệ - Ngoại thất Fansipan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kết nối với Ngoại thất Fansipan ngay để biết thêm về các sản phẩm ngoại thất cao cấp như bàn ghế ngoài trời, bàn ghế sân vườn, bàn ghế cafe của chúng tôi.">
+    <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/ >
+    <%- include("style-tags");%>
+  </head>
+  <body>
+    <%- include('navbar',{current_page:"contact"});%>
+<section>
+<div class="container">
+  <h1 style="color: #08A650" class="text-center">Công ty Cổ phần Ngoại Thất Fansipan</h1>
+  <div class="row" style="margin-top: 40px;">
+    <div class="col-xs-12 col-sm-6">
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>Văn phòng</h3>
+          <h4>Trụ sở chính: <em>Số 45 - Tỉnh lộ 392 - Tráng Liệt - Bình Giang - Hải Dương</em></h4>
+          <h4>Chi nhánh miền Nam: <em>E4/ 52 quốc lộ 1A - phường Bình Trị Đông B - quận Bình Tân - TP Hồ Chí Minh</em></h4>
+        </div>
+        <div class="col-xs-12">
+          <h3>Nhà máy</h3>
+          <h4>Địa chỉ: <em>Km 18 - Tỉnh lộ 394 - Tân Hồng - Bình Giang - Hải Dương</em></h4>
+        </div>
+        <div class="col-xs-12">
+          <h3>Liên hệ</h3>
+          <h4><span class="glyphicon glyphicon-phone-alt"></span> Telephone: <em>03203 776 269</em></h4>
+          <h4><span class="glyphicon glyphicon-phone"></span> Mobile Phone: <em>0936 258 088</em></h4>
+          <h4><span class="glyphicon glyphicon-print"></span> Fax: <em>03203 799 309</em></h4>
+          <h4><span class="glyphicon glyphicon-envelope"></span> Email: <em>ngoaithatfansipan@gmail.com</em></h4>
+          <h4><img src="/images/fb.png" width="18px"alt=""/> Facebook: <a href="https://www.facebook.com/ngoaithatfansipan/">ngoaithatfansipan</a></h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-sm-offset-1" style="margin-top: 30px;">
+      <form id="contact_form">
+        <div class="form-group">
+          <label for="name">Họ tên:</label>
+          <input type="text" class="form-control" placeholder="Nhập họ và tên" aria-describedby="inputError1Status" id="name"/>
+          <span class="glyphicon glyphicon-remove form-control-feedback nodisplay" aria-hidden="true" ></span>
+          <span id="helpBlockName" class="help-block empty nodisplay">Vui lòng nhập đầy đủ họ tên</span>
+          <span id="inputError1Status" class="sr-only">(error)</span>
+        </div>
+        <div class="form-group">
+          <label for="phone_number">Số điện thoại:</label>
+          <input type="tel" class="form-control" placeholder="Nhập số điện thoại" aria-describedby="inputError2Status" id="phone"/>
+          <span class="glyphicon glyphicon-remove form-control-feedback nodisplay" aria-hidden="true" ></span>
+          <span id="helpBlockPhoneBlank" class="help-block empty nodisplay">Vui lòng nhập số điện thoại liên hệ</span>
+          <span id="helpBlockPhoneInvalid" class="help-block wrong nodisplay">Vui lòng nhập số điện thoại hợp lệ</span>
+          <span id="inputError2Status" class="sr-only">(error)</span>
+        </div>
+        <div class="form-group">
+          <label for="message">Lời nhắn:</label>
+          <textarea type="text" class="form-control" rows = "8" placeholder="Tin nhắn gửi Ngoại thất Fansipan" aria-describedby="inputError3Status" id="message"></textarea>
+          <span class="glyphicon glyphicon-remove form-control-feedback nodisplay" aria-hidden="true" ></span>
+          <span id="helpBlockMessage" class="help-block empty nodisplay">Vui lòng nhập tin nhắn</span>
+          <span id="inputError3Status" class="sr-only">(error)</span>
+        </div>
+      </form>
+      <button type ="submit" class="btn btn-default btn-success" id="submit_button">Gửi</button>
+      <span id="status" class="help-block"></span>
+    </div>
+    <div class="col-xs-12">
+      <div class="embed-responsive embed-responsive-16by9" style="margin-top: 40px;">
+          <iframe frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ4cRO2KCiNTERihev8FyaNpw&key=AIzaSyC_gbgoWwOu4nCKDuPXHj8Ej3xEzWGkgXU" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<div class="container">
+  <hr>
+  <footer class="text-center" style="margin-bottom: 5px; color: #aaa;">Copyright © 2016 Ngoai that Fansipan Joint-stock Company. All rights reserved.</footer>
+</div>
+</body>
+<%- include("script-tags");%>
+</html>

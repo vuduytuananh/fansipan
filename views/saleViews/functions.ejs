@@ -1,0 +1,11 @@
+<div class="row">
+  <%functions.forEach(function(item){%>
+    <a href="<%=item.link%>">
+    <div class="col-xs-12 function-item <%if(active === item.link){%>
+      function-active
+    <%}%>">
+      <span class="<%=item.icon%>"></span><span class="function-label"><%=item.innerText%></span>
+    </div>
+    </a>
+  <%});%>
+</div>

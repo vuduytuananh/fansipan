@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form id="contact_form">
+      <div class="form-group">
+        <label for="name">Tên Đăng Nhập</label>
+        <input type="text" class="form-control" aria-describedby="inputError1Status" id="username"/>
+        <%# <span class="glyphicon glyphicon-remove form-control-feedback nodisplay" aria-hidden="true" ></span>
+        <span id="helpBlockName" class="help-block empty nodisplay">Vui lòng nhập đầy đủ họ tên</span>
+        <span id="inputError1Status" class="sr-only">(error)</span>%>
+      </div>
+      <div class="form-group">
+        <label for="phone_number">Mật Khẩu</label>
+        <input type="password" class="form-control" aria-describedby="inputError2Status" id="password"/>
+        <%# <span class="glyphicon glyphicon-remove form-control-feedback nodisplay" aria-hidden="true" ></span>
+        <span id="helpBlockPhoneBlank" class="help-block empty nodisplay">Vui lòng nhập số điện thoại liên hệ</span>
+        <span id="helpBlockPhoneInvalid" class="help-block wrong nodisplay">Vui lòng nhập số điện thoại hợp lệ</span>
+        <span id="inputError2Status" class="sr-only">(error)</span>%>
+      </div>
+    </form>
+    <button type ="submit" class="btn btn-default btn-success" id="submit_button">Đăng nhập</button>
+    <span id="status" class="help-block"></span>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+
+    <%for(var i = 0; i< products.length;){%>
+      <div class="row">
+          <%if(products[i] !== undefined){%>
+            <div class="col-sm-3">
+              <div class="thumbnail">
+                  <div class="caption text-center bg">
+                    <label><%=products[i].productId%></label>
+                  </div>
+                  <img src="<%=products[i].productPicture%>" alt="<%=products[i].productName%>" style="">
+                  <div class="caption text-center bg">
+                    <a href="/admin/products/remove/<%=products[i].id%>" class="btn btn-danger">Xoá</a>
+                    <a href="/admin/products/update/<%=products[i].id%>" class="btn btn-primary">Sửa</a>
+                  </div>
+              </div>
+            </div>
+            <%}%>
+            <%if(products[i+1] !== undefined){%>
+            <div class="col-sm-3 col-xs-offset-1">
+              <div class="thumbnail">
+                  <div class="caption text-center bg">
+                    <label><%=products[i+1].productId%></label>
+                  </div>
+                  <img src="<%=products[i+1].productPicture%>" alt="<%=products[i+1].productName%>" style="">
+                  <div class="caption text-center bg">
+                    <a href="/admin/products/remove/<%=products[i+1].id%>" class="btn btn-danger">Xoá</a>
+                    <a href="/admin/products/update/<%=products[i+1].id%>" class="btn btn-primary">Sửa</a>
+                  </div>
+              </div>
+            </div>
+            <%}%>
+            <%if(products[i+2] !== undefined){%>
+            <div class="col-sm-3 col-xs-offset-1">
+              <div class="thumbnail">
+                  <div class="caption text-center bg">
+                    <label><%=products[i+2].productId%></label>
+                  </div>
+                  <img src="<%=products[i+2].productPicture%>" alt="<%=products[i+2].productName%>" style="">
+                  <div class="caption text-center bg">
+                    <a href="/admin/products/remove/<%=products[i+2].id%>" class="btn btn-danger">Xoá</a>
+                    <a href="/admin/products/update/<%=products[i+2].id%>" class="btn btn-primary">Sửa</a>
+                  </div>
+              </div>
+            </div>
+            <%}%>
+        </div>
+    <%i += 3;}%>

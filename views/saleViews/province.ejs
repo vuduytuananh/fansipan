@@ -1,0 +1,17 @@
+<div class="row">
+  <h1 style="text-align: center; color: #08A650"><%=title%></h1>
+  <div class="col-xs-12">
+    <a href="/manager/add_manager" type="button" class="btn btn-success" name="button"><span class="glyphicon glyphicon-plus-sign"></span> Thêm nhà phân phối</a>
+  </div>
+  <div class="col-xs-12">
+    <hr>
+    <% data.forEach(function(item){ %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 manager-label manager-field">
+          <h3 class="yellow"><%= item.province %></h3>
+        </div>
+      </div>
+      <%- include("retailers_in_province", {districts: item.districts});%>
+    <%})%>
+  </div>
+</div>

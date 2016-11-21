@@ -1,0 +1,90 @@
+<div class="row">
+  <h1 style="text-align: center; color: #08A650"><%=title%></h1>
+  <div class="col-xs-12">
+    <hr>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-1 manager-label manager-field">
+        <label for="">Dòng sản phẩm:</label>
+      </div>
+      <div class="col-xs-7 manager-field">
+        <form><div class="form-group"><input class="form-control" type="text" name="productLine" placeholder="Nhập tên dòng sản phẩm"></div></form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-1 manager-label manager-field">
+        <label for="">Tên sản phẩm:</label>
+      </div>
+      <div class="col-xs-7 manager-field">
+        <form><div class="form-group"><input class="form-control" type="text" name="productName" placeholder="Nhập tên riêng để nhận biết sản phẩm"></div></form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-1 manager-label manager-field">
+        <label for="">ID sản phẩm:</label>
+      </div>
+      <div class="col-xs-7 manager-field">
+        <form><div class="form-group"><input class="form-control" type="text" placeholder="ID của sản phẩm phải ngắn gọn và duy nhất (ví dụ: Patio-T-1ST)" name="productID"></div></form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-1 manager-label manager-field">
+        <label for="">Ảnh mẫu:</label>
+      </div>
+      <div class="col-xs-7 manager-field">
+        <form><div class="form-group"><input id="sample_image_upload" accept="image/*" class="form-control" type="file" name="sample-picture"></div></form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-4 manager-field">
+        <img id="preview_upload_image" class="img img-responsive img-rounded" src="" alt="" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-1 manager-label manager-field">
+        <label for="">Thông số:</label>
+      </div>
+      <div class="col-xs-8" id="product_specs">
+        <div class="row">
+          <div class="col-xs-2 manager-label manager-field">
+            <a class="btn remove_product_spec"><span class="glyphicon glyphicon-minus-sign red" style="font-size: 24px;"></span></a>
+          </div>
+          <div class="col-xs-4 manager-field">
+            <form><div class="form-group"><input class="form-control" type="text" name="field" placeholder="Chỉ số"></div></form>
+          </div>
+          <div class="col-xs-4 manager-field">
+            <form><div class="form-group"><input class="form-control" type="text" name="value" placeholder="Giá trị"></div></form>
+          </div>
+        </div>
+        <div class="row" id="add_product">
+          <div class="col-xs-2 manager-label manager-field">
+            <a class="btn" id="add_product_spec"><span class="glyphicon glyphicon-plus-sign green" style="font-size: 24px;"></span></a>
+          </div>
+          <div class="col-xs-4 manager-field">
+            <form><div class="form-group"><input class="form-control" type="text" name="field" disabled placeholder="Chỉ số"></div></form>
+          </div>
+          <div class="col-xs-4 manager-field">
+            <form><div class="form-group"><input class="form-control" type="text" name="value" disabled placeholder="Giá trị"></div></form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-1 manager-label manager-field">
+        <label for="">Miêu tả sản phẩm:</label>
+      </div>
+      <div class="col-xs-7 manager-field">
+        <form><div class="form-group"><textarea id="product_description" class="form-control" type="text-area" rows="6" name="producDescription"></textarea></div></form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-9 col-xs-offset-5 manager-field"><label id="validate_message"></label></div>
+      <div class="col-xs-2 col-xs-offset-5 manager-field">
+        <button type="button" class="btn btn-primary save-new-product-button" name="update">Lưu</button>
+      </div>
+      <div class="col-xs-2 manager-field">
+        <a href="/admin/products" type="button" class="btn btn-danger cancel-new-manager-button" name="remove">Thoát</a>
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>

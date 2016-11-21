@@ -1,0 +1,20 @@
+<div class="row">
+  <h1 style="text-align: center; color: #08A650"><%= right.title %></h1>
+  <div class="col-xs-12">
+    <a href="/admin/products/add" type="button" class="btn btn-success" name="button"><span class="glyphicon glyphicon-plus-sign"></span>  Thêm sản phẩm</a>
+  </div>
+  <div class="col-xs-12">
+    <hr>
+    <% data.forEach(function(item){ %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 manager-label manager-field">
+          <h1 class="yellow"><%= item.productLineName %></h1>
+        </div>
+      </div>
+      <div class="row">
+        <%- include("products_in_line", {products: item.products});%>
+      </div>
+      <hr>
+    <%})%>
+  </div>
+</div>

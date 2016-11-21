@@ -1,0 +1,16 @@
+
+    <%districts.forEach(function(item){%>
+        <%item.retailers.forEach(function(retailer){%>
+          <div class="row">
+          <a href="/admin/retailers/<%= retailer.id%>">
+          <div class="col-xs-1 manager-field">
+            <label name="FRID"><%=retailer.FRID%></label>
+          </div>
+          <div class="col-xs-11 manager-field">
+            <label name="nameAndAdress"><%=retailer.nameAndAddress%></label>
+          </div>
+          </a>
+          </div>
+          <hr>
+        <%});%>
+    <%});%>

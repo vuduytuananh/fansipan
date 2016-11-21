@@ -1,0 +1,30 @@
+
+    <%districts.forEach(function(item){%>
+        <%item.retailers.forEach(function(retailer){%>
+          <a href="/admin/retailers/<%= item.id%>">
+          <div class="row" style="background-color: #eee;">
+          <div class="col-xs-3 col-sm-3 manager-label manager-field">
+            <label for="">FRID:</label>
+          </div>
+          <div class="col-xs-9 manager-field">
+            <label name="FRID"><%=retailer.FRID%></label>
+          </div>
+          <div class="col-xs-3 col-sm-3 manager-label manager-field">
+            <label for="">Tên, địa chỉ:</label>
+          </div>
+          <div class="col-xs-9 manager-field">
+            <label name="nameAndAdress"><%=retailer.nameAndAddress%></label>
+          </div>
+          <div class="col-xs-3 col-sm-3 manager-label manager-field">
+            <label for="">Dư - Nợ hiện tại</label>
+          </div>
+          <div class="col-xs-9 manager-field">
+            <label name="name"><%=retailer.currentBalance.amount%></label>
+          </div>
+          </a>
+          <div class="col-xs-12 manager-field">
+            <label name="name">&nbsp;</label>
+          </div>
+          </div>
+        <%});%>
+    <%});%>

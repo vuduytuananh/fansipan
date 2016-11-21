@@ -1,0 +1,80 @@
+<div class="row">
+  <h1 style="text-align: center; color: #08A650"><%= right.title %></h1>
+  <div class="col-xs-12">
+    <a href="/manager/add_manager" type="button" class="btn btn-success" name="button"><span class="glyphicon glyphicon-plus-sign"></span>Thêm nhà phân phối</a>
+  </div>
+  <div class="col-xs-12">
+    <hr>
+    <%data.retailers.forEach(function(item){%>
+      <div class="row">
+        <div class="col-xs-4 col-sm-3 manager-label manager-field">
+          <label for="">ID:</label>
+        </div>
+        <div class="col-xs-7 manager-field">
+          <label class="retailer_id" for=""><%=item.id%></label>
+        </div>
+        <div class="col-xs-4 col-sm-3 manager-label manager-field">
+          <label for="">Tên, địa chỉ:</label>
+        </div>
+        <div class="col-xs-7 manager-field">
+          <form><div class="form-group"><input class="form-control" type="text" name="nameAndAdress" disabled value="<%=item.nameAndAddress%>"></div></form>
+        </div>
+        <div class="col-xs-4 col-sm-3 manager-label manager-field">
+          <label for="">FRID:</label>
+        </div>
+        <div class="col-xs-7 manager-field">
+          <form><div class="form-group"><input class="form-control" type="text" name="FRID" disabled value="<%=item.FRID%>"></div></form>
+        </div>
+        <div class="col-xs-4 col-sm-3 manager-label manager-field">
+          <label for="">Email:</label>
+        </div>
+        <div class="col-xs-7 manager-field">
+          <form><div class="form-group"><input class="form-control" type="text" name="email" disabled value="<%=item.email%>"></div></form>
+        </div>
+        <div class="col-xs-4 col-sm-3 manager-label manager-field">
+          <label for="">Dư - Nợ</label>
+        </div>
+        <div class="col-xs-7 manager-label manager-field">
+          <label for="">&nbsp;</label>
+        </div>
+        <div class="col-xs-4 col-sm-3 manager-label manager-field">
+          <label for=""><%= data.format(item.lastMonthBalance.date)%></label>
+        </div>
+        <div class="col-xs-7 manager-field">
+          <form><div class="form-group"><input class="form-control" type="text" name="name" disabled value="<%=item.lastMonthBalance.amount%>"></div></form>
+        </div>
+        <div class="col-xs-4 col-sm-3 manager-label manager-field">
+          <label for=""><%= data.format(item.currentBalance.date)%></label>
+        </div>
+        <div class="col-xs-7 manager-field">
+          <form><div class="form-group"><input class="form-control" type="text" name="name" disabled value="<%=item.currentBalance.amount%>"></div></form>
+        </div>
+        <div class="col-xs-4 col-sm-3 manager-label manager-field nodisplay toggle">
+          <label for="">Mật khẩu mới:</label>
+        </div>
+        <div class="col-xs-7 manager-field nodisplay toggle">
+          <form><div class="form-group"><input class="form-control" placeholder="Nhập mật khẩu mới khi Manager quên mật khẩu cũ" type="password" name="password" disabled value=""></div></form>
+        </div>
+        <div class="col-xs-4 col-sm-3 manager-label manager-field nodisplay toggle">
+          <label for="">Nhập lại mật khẩu mới:</label>
+        </div>
+        <div class="col-xs-7 manager-field nodisplay toggle">
+          <form><div class="form-group"><input class="form-control" placeholder="Nhập mật khẩu mới khi Manager quên mật khẩu cũ" type="password" name="passwordRe" disabled value=""></div></form>
+        </div>
+        <div class="col-xs-7 col-xs-offset-3 manager-field">
+          <label class="update_validate_message"></label>
+        </div>
+        <div class="col-xs-2 col-xs-offset-3 manager-field">
+          <button type="button" class="btn btn-primary update-button" name="update">Sửa</button>
+        </div>
+        <div class="col-xs-2 manager-field nodisplay toggle">
+          <a href="/admin/managers" type="button" class="btn btn-warning cancel-button" name="update">Bỏ qua</a>
+        </div>
+        <div class="col-xs-2 manager-field">
+          <button type="button" class="btn btn-danger remove-button" name="remove">Xoá</button>
+        </div>
+      </div>
+      <hr>
+    <%});%>
+  </div>
+</div>

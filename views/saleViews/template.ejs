@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='shortcut icon' href='/images/favicon.ico' type='image/x-icon'/ >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/sale_style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/admin.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 col-lg-2 left-navi bg">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12 col-xs-4 col-xs-offset-4 col-sm-offset-0">
+                <img src="/images/fansipan-logo.png" class="img img-responsive" alt="" />
+              </div>
+              <div class="col-xs-12">
+                <p class="function-description"> <%= pageTitle %> </p>
+              </div>
+              <div class="container-fluid">
+                <%- include(left.temp_name, left.data); %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-10 col-sm-9 col-lg-10 right-content">
+          <div class="container-fluid">
+            <%- include(right.temp_name, {title: right.title, data: right.data}); %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%-include("../footer")%>
+  </body>
+  <script type="text/javascript" src="/javascripts/<%=type%>_script.js"></script>
+</html>

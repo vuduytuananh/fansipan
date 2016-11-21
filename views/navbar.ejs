@@ -1,0 +1,66 @@
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+<div class="navbar-header" id="togbar">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="navbar-brand" href="/"><img src="/images/fansipan-hinh-anh.png" height="110px" alt="logo của Ngoại thất Fansipan" id="top_left_logo"/></a>
+</div>
+<div class="collapse navbar-collapse" id="myNavbar">
+  <img src="images/fansipan-logo-markup.png" height="180px" id="top_right_markup"/>
+  <ul class="nav navbar-nav" id="links_list">
+    <%# Home page%>
+    <li <%if(current_page == "home"){%>
+        <%- 'class= "menu-item-hover current_page"' %>
+    <%}else{%>
+        <%- 'class="menu-item-hover"' %>
+      <%}%> >
+      <a href="/">Trang chủ</a>
+    </li>
+    <%# End Home page %>
+
+    <%# Kite%>
+    <li <%if(current_page == "kite"){%>
+        <%- 'class= "menu-item-hover current_page"' %>
+    <%}else{%>
+        <%- 'class="menu-item-hover"' %>
+      <%}%> >
+      <a href="/ban-ghe-kite">Kite</a>
+    </li>
+    <%# End Kite%>
+
+    <%# Patio%>
+    <li <%if(current_page == "patio"){%>
+        <%- 'class= "menu-item-hover current_page"' %>
+    <%}else{%>
+        <%- 'class="menu-item-hover"' %>
+      <%}%> >
+      <a href="/ban-ghe-patio">Patio</a>
+    </li>
+    <%# End Patio%>
+
+    <%# Retailers%>
+    <li <%if(current_page == "retailers"){%>
+        <%- 'class= "menu-item-hover current_page"' %>
+    <%}else{%>
+        <%- 'class="menu-item-hover"' %>
+      <%}%> >
+      <a href="/phanphoi">Phân Phối</a>
+    </li>
+    <%# End Retailer%>
+
+    <%# Contact%>
+    <li <%if(current_page == "contact"){%>
+        <%- 'class= "menu-item-hover current_page"' %>
+    <%}else{%>
+        <%- 'class="menu-item-hover"' %>
+      <%}%> >
+      <a href="/lienhe">Liên Hệ</a>
+    </li>
+    <%# End Contact%>
+  </ul>
+</div>
+</div>
+</nav>
