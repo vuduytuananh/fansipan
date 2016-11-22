@@ -28,7 +28,7 @@ function sendEmail(fromEmail,toEmail,subject,title,data, callback){
   });
   var content = new helper.Content('text/html', contentHTML);
   var mail = new helper.Mail(from_email, subject, to_email, content);
-  var sg = require('sendgrid')("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");
+  var sg = require('sendgrid')(process.SENDGRIDKEY);
   var request = sg.emptyRequest({
   method: 'POST',
   path: '/v3/mail/send',
