@@ -12,7 +12,7 @@ var Retailer = require("../../models/retailer");
 var Province = require("../../models/province");
 var Product = require("../../models/product");
 var ProductLine = require("../../models/productLine");
-
+var PricePolicy = require("../../models/pricePolicy");
 var authorize = require("../../ulti/authorize");
 var authorizeAdmin = authorize("admin","/admin/login");
 var bcrypt = require("bcryptjs");
@@ -353,10 +353,34 @@ router.get("/retailers/add_retailer", authorizeAdmin, function(req,res){
 
 });
 router.get("/retailers/:id", authorizeAdmin, function(req,res){
-  console.log(req.params.id);
-  Retailer.getRetailerById(req.params.id, function(err,retailer){
-    console.log(retailer);
-    res.json(retailer);
+  PricePolicy.getAllPolicyNames(function(err,names){
+    if(err){
+      res.end("Lỗi tìm Price Policy Names");
+    }else{
+      Retailer.getRetailerById(req.params.id, function(err,retailer){
+        if(err){
+          res.end("lỗi tìm nhà phân phối");
+        }else{
+          retailer.pricePolicyNames = names;
+        res.render("saleViews/template", {
+          pageTitle: "Quản trị",
+          type: "admin",
+          left:{
+            temp_name: "functions",
+            data: {
+              functions: adminFunctions,
+              active: "/admin/retailers"
+            }
+          },
+          right:{
+            temp_name: "admin_update_retailer",
+            title: "Thông tin chi tiết nhà phân phối",
+            data: retailer
+          }
+        });
+      }
+      });
+    }
   });
 });
 router.post("/retailers/add_retailer", authorizeAdmin, function(req,res){
@@ -370,22 +394,75 @@ router.put("/retailers/:id", authorizeAdmin, function(req,res){
 });
 //admin/products
 router.get("/products/add", authorizeAdmin, function(req,res){
-  res.render("saleViews/template", {
-    pageTitle: "Quản trị",
-    type: "admin",
-    left:{
-      temp_name: "functions",
-      data: {
-        functions: adminFunctions,
-        active: "/admin/products"
+  ProductLine.getAllProductsLinesNames(function(err, names){
+    if(err){
+      res.end("Lỗi tìm tên dòng sản phẩm");
+    }else{
+    res.render("saleViews/template", {
+      pageTitle: "Quản trị",
+      type: "admin",
+      left:{
+        temp_name: "functions",
+        data: {
+          functions: adminFunctions,
+          active: "/admin/products"
+        }
+      },
+      right:{
+        temp_name: "admin_add_product",
+        title: "Thêm sản phẩm",
+        data: names
       }
-    },
-    right:{
-      temp_name: "admin_add_product",
-      title: "Thêm sản phẩm",
-      data: {}
+    });
+  }
+});
+});
+router.post("/products/update", authorizeAdmin, function(req,res){
+  if(req.body.productPicture === ""){
+    delete req.body.productPicture;
+  }else{
+    req.body.productPicture = "/uploads/processed/" + req.body.productId + req.body.productPicture;
+  }
+  Product.updateByProductId(req.body.productId, req.body, function(err, result){
+    if(err){
+      res.end("OK");
+      return;
     }
-  });
+    if(req.body.productPicture){
+      res.end("upload pic");
+    }else{
+      res.end("OK");
+    }
+  })
+});
+router.get("/products/:id", authorizeAdmin, function(req,res){
+    Product.getProductById(req.params.id, function(err, product){
+      if(err){
+        res.redirect("/admin/products");
+        return;
+      }
+      if(!product){
+        res.redirect("/admin/products");
+        return;
+      }
+      res.render("saleViews/template", {
+        pageTitle: "Quản trị",
+        type: "admin",
+        left:{
+          temp_name: "functions",
+          data: {
+            functions: adminFunctions,
+            active: "/admin/products"
+          }
+        },
+        right:{
+          temp_name: "admin_update_product",
+          title: "Sửa thông tin sản phẩm",
+          data: product
+        }
+      });
+
+    });
 });
 router.post("/products/addProduct", authorizeAdmin, function(req,res){
   var productLine = req.body.productLine;
@@ -428,30 +505,72 @@ router.post("/products/addPic", authorizeAdmin, function(req,res){
   form.uploadDir = path.join(appRoot, 'public/uploads');
   form.on('file', function(field, file) {
     filename = file.name;
-    fs.rename(file.path, path.join(form.uploadDir, file.name));
+    fs.rename(file.path, path.join(form.uploadDir, filename));
   });
   form.on('error', function(err) {
     res.end("Đã lưu thông tin sản phẩm nhưng có lỗi lưu ảnh sản phẩm, sửa lại sau!");
   });
   form.on('end', function() {
     //update
-    sharp(appRoot + '/public/uploads/' + filename)
-    .resize(320, 250)
-    .background({r: 255, g: 255, b: 255, a: 100})
-    .embed()
-    .toFile(appRoot + '/public/uploads/processed/' + filename, function(err) {
-      if(err){
-        res.end("Đã lưu thông tin sản phẩm nhưng có lỗi lưu ảnh sản phẩm, sửa lại sau!");
-      }else{
-        fs.unlink(appRoot + '/public/uploads/' + filename);
-        res.json({redirect:"/admin/products"});
+    fs.readdir(appRoot + "/public/uploads/processed/", function(err, files){
+      if(files){
+      files.forEach(function(file){
+        if(filename.substring(0,filename.lastIndexOf(".") + 1) === file.substring(0,filename.lastIndexOf(".") + 1)){
+          fs.unlink(appRoot + "/public/uploads/processed/" + file, function(err){
+            console.log(err);
+            sharp(appRoot + '/public/uploads/' + filename)
+            .resize(320, 250)
+            .background({r: 255, g: 255, b: 255, a: 100})
+            .embed()
+            .toFile(appRoot + '/public/uploads/processed/' + filename, function(err) {
+              if(err){
+                res.end("Đã lưu thông tin sản phẩm nhưng có lỗi lưu ảnh sản phẩm, sửa lại sau!");
+                return;
+              }else{
+                fs.unlink(appRoot + '/public/uploads/' + filename, function(err){
+                  console.log(err);
+                  res.json({redirect:"/admin/products"});
+                  return;
+                });
+              }
+            });
+          });
+        }
+      });
       }
     });
+    fs.readdir(appRoot + "/public/uploads/processed/", function(err, files){
+      if(files && files.every(function(i){
+        return filename.substring(0,filename.lastIndexOf(".") + 1) !== i.substring(0,filename.lastIndexOf(".") + 1);
+      })){
+        sharp(appRoot + '/public/uploads/' + filename)
+        .resize(320, 250)
+        .background({r: 255, g: 255, b: 255, a: 100})
+        .embed()
+        .toFile(appRoot + '/public/uploads/processed/' + filename, function(err) {
+          if(err){
+            res.end("Đã lưu thông tin sản phẩm nhưng có lỗi lưu ảnh sản phẩm, sửa lại sau!");
+            return;
+          }else{
+            fs.unlink(appRoot + '/public/uploads/' + filename, function(err){
+              console.log(err);
+              res.json({redirect:"/admin/products"});
+              return;
+            });
+          }
+        });
+      }
   });
+});
   form.parse(req);
 });
-router.get("/products/remove/:id", authorizeAdmin, function(req,res){
-  Product.deleteProductById(req.params.id, function(err, result){
+router.get("/products/activate/:id", authorizeAdmin, function(req,res){
+  Product.activateProductById(req.params.id, function(err, result){
+    res.redirect("/admin/products");
+  });
+});
+router.get("/products/deactivate/:id", authorizeAdmin, function(req,res){
+  Product.deactivateProductById(req.params.id, function(err, result){
     res.redirect("/admin/products");
   });
 });
@@ -479,7 +598,140 @@ router.get("/products", authorizeAdmin, function(req,res){
     }
   });
 });
+//admin/price-policy
+router.get("/price-policy/add", authorizeAdmin, function(req,res){
+  ProductLine.getAllProducts(function(err,products){
+    if(err){
+      res.end("Lỗi tìm sản phẩm");
+    }else{
+      res.render("saleViews/template", {
+        pageTitle: "Quản trị",
+        type: "admin",
+        left:{
+          temp_name: "functions",
+          data: {
+            functions: adminFunctions,
+            active: "/admin/price-policy"
+          }
+        },
+        right:{
+          temp_name: "admin_content_price_policy",
+          title: "Thêm chính sách giá",
+          data: products
+        }
+      });
+    }
+  });
+});
+router.get("/price-policy/:id", authorizeAdmin, function(req,res){
+  ProductLine.getAllProducts(function(err,products){
+    if(err){
+      res.end("Lỗi tìm sản phẩm");
+      return;
+    }else{
+      PricePolicy.getPolicyById(req.params.id, function(err, policy){
+        if(err || !policy){
+          res.end("Lỗi tìm chính sách giá");
+          return;
+        }else{
+          res.render("saleViews/template", {
+            pageTitle: "Quản trị",
+            type: "admin",
+            left:{
+              temp_name: "functions",
+              data: {
+                functions: adminFunctions,
+                active: "/admin/price-policy"
+              }
+            },
+            right:{
+              temp_name: "admin_price_policy_by_name",
+              title: "Chính sách giá",
+              data: {products: products, policy: policy}
+            }
+          });
+        }
+      });
+    }
+  });
+});
+router.put("/price-policy", authorizeAdmin, function(req,res){
+  req.body.details.forEach(function(product){
+    var ok = product.price.split("").every(function(i){
+      return "0123456789".indexOf(i) !== - 1;
+    }) && product.price.charAt(0) !== "0" && product.price !== "";
+    if(!ok){
+      product.price = "#novalue";
+    }else{
+      product.price = "" + Number(product.price);
+    }
+  });
+    PricePolicy.updatePolicyById(req.body.id, {details: req.body.details}, function(err,result){
+      if(err){
+        console.log(err);
+      }
+      res.json({redirect:"/admin/price-policy"});
+    })
+})
+router.post("/price-policy", authorizeAdmin, function(req,res){
+  req.body.details.forEach(function(product){
+    var ok = product.price.split("").every(function(i){
+      return "0123456789".indexOf(i) !== - 1;
+    }) && product.price.charAt(0) !== "0" && product.price !== "";
+    if(!ok){
+      product.price = "#novalue";
+    }else{
+      product.price = "" + Number(product.price);
+    }
+  });
+  if(req.body.name === ""){
+    res.end("Tên chính sách không hợp lệ!");
+    return;
+  }else{
+    var newPricePolicy = new PricePolicy(req.body);
+    PricePolicy.createNewPolicy(newPricePolicy, function(err, result){
+      if(err){
+        console.log(err);
+        res.end("Lỗi lưu chính sách giá, có thể tên chính sách giá bị trùng, thử lại tên khác!");
+        return;
+      }else{
+        res.json({redirect: "/admin/price-policy"});
+        return;
+      }
+    })
+  }
+});
+router.get("/price-policy", authorizeAdmin, function(req,res){
+  PricePolicy.getAllPolicies(function(err, policies){
+    if(err){
+      res.end("Lỗi tìm chính sách giá");
+    }else{
+      res.render("saleViews/template", {
+        pageTitle: "Quản trị",
+        type: "admin",
+        left:{
+          temp_name: "functions",
+          data: {
+            functions: adminFunctions,
+            active: "/admin/price-policy"
+          }
+        },
+        right:{
+          temp_name: "admin_price_policy",
+          title: "Thông tin chính sách giá",
+          data: policies
+        }
+      });
+    }
+  })
+});
+router.delete("/price-policy", authorizeAdmin, function(req,res){
+  PricePolicy.deletePolicyByName(req.body.name, function(err,result){
+    res.json({redirect: '/admin/price-policy'});
+  });
+});
 //admin/logout
+
 router.get("/logout",authorizeAdmin, function(req,res,next){
   req.logout();
   next();

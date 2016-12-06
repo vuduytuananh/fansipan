@@ -1,6 +1,9 @@
 .item1, .item2, .item4, .item3{
   margin-bottom: 10%;
 }
+.factory-background{
+  background-image: url("/images/ngoaithatfansipan_nha_may.jpg");
+}
 .index-badges{
   border-style: solid;
   border-width: thin;

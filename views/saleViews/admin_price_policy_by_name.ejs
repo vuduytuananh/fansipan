@@ -1,0 +1,31 @@
+<div class="row">
+  <h1 style="text-align: center; color: #08A650"><%=right.title %>: <%=data.policy.name%></h1>
+  <h2 class="nodisplay" id="policy_id"><%=data.policy.id%></h2>
+  <div class="col-xs-12">
+    <hr>
+    <% data.products.forEach(function(item){ %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 manager-label manager-field">
+          <h1 class="yellow"><%= item.productLineName %></h1>
+        </div>
+      </div>
+      <div class="row">
+        <%- include("update_products_in_policy", {products: item.products, policy: data.policy});%>
+      </div>
+      <hr>
+    <%})%>
+  </div>
+  <div  class="col-xs-12">
+    <h4 style="">Lưu ý: chỉ những sản phẩm được điền giá và ở trạng thái đã được kích hoạt<span class="text-success">(màu xanh)</span> và có giá khác 0 mới được hiện cho Nhà phân phối đặt hàng</h4>
+    <h3 id="new_price_policy_message" style="color: red;"></h3>
+    <div class="row">
+      <div class="col-xs-1">
+        <button class="btn btn-success" id="update_price_policy">Lưu</button>
+      </div>
+      <div class="col-xs-1">
+        <a href="/admin/price-policy" class="btn btn-warning">Bỏ qua</a>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>

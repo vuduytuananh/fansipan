@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var ProductLine = require("./productLine");
+var fs = require("fs");
 var kvSchema = new Schema({
   field: {
     type: String,
@@ -31,6 +32,11 @@ var ProductSchema = new Schema({
       unique: true,
       required: true
     },
+    state:{
+      type: String,
+      required: true,
+      default: "Unavailable"
+    },
     productSpecs: [kvSchema],
     productDescription: String
 });
@@ -60,50 +66,20 @@ module.exports.createNewProduct = function(newProduct, callback){
     }
   });
 }
-module.exports.deleteProductById = function(id, callback){
-  Product.findById(id, function(err, product){
-    if(err){
-      console.log(err);
-      callback(err);
-
-    }else{
-      ProductLine.getByName(product.productLine, function(err,productLine){
-        if(err){
-          console.log(err);
-          callback(err);
-        }else{
-          if(productLine){
-            var index = productLine.products.indexOf(product.id);
-            if(index > -1){
-                productLine.products.splice(index, 1);
-            }
-            if(productLine.products.length === 0){
-              ProductLine.deleteById(productLine.id, function(err, result){
-                if(err){
-                  console.log(err);
-                  callback(err);
-                }
-              })
-            }else{
-              ProductLine.updateByName(product.productLine, {products: productLine.products}, function(err,result){
-                if(err){
-                  console.log(err);
-                  callback(err);
-                }
-              });
-            }
-            Product.findOneAndRemove({_id: id}, callback);
-          }
-        }
-      })
-    }
-  });
+module.exports.activateProductById = function(id, callback){
+  Product.findOneAndUpdate({_id: id}, {state : "Activated"}, callback);
+}
+module.exports.deactivateProductById = function(id, callback){
+  Product.findOneAndUpdate({_id: id}, {state : "Unavailable"}, callback);
 }
 module.exports.getAllProducts = function(callback){
   Product.find({},callback);
 }
 module.exports.getProductById = function(id, callback){
   Product.findById(id, callback);
+}
+module.exports.updateByProductId = function(productId, newdata, callback){
+  Product.findOneAndUpdate({productId: productId}, newdata, callback);
 }
 module.exports.getAllProducts = function(proj, callback){
   Product.find({},proj, callback);

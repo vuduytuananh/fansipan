@@ -1,0 +1,30 @@
+<div class="row">
+<%for(var i = 0; i< products.length; i++){%>
+      <%if(products[i] !== undefined){%>
+        <div class="col-sm-3 product_price_data">
+          <div class="thumbnail">
+              <div class="caption text-center <%if(products[i].state === 'Unavailable'){%>
+                bg-danger
+                <%};if(products[i].state === 'Activated'){%>
+                bg-success
+                <%};%>">
+                <label><%=products[i].productId%></label>
+                <label><%=products[i].productName%></label>
+                <label class="nodisplay"><%=products[i].id%></label>
+              </div>
+              <img src="<%=products[i].productPicture%>" alt="<%=products[i].productName%>" style="">
+              <div class="caption text-center <%if(products[i].state === 'Unavailable'){%>
+                bg-danger
+                <%};if(products[i].state === 'Activated'){%>
+                bg-success
+                <%};%>">
+                <div class="input-group">
+                  <input class="form-control" type="number" name="productPrice" placeholder="Không dấu(e.g: 230000)">
+                  <span class="input-group-addon">VNĐ</span>
+                </div>
+              </div>
+          </div>
+        </div>
+        <%}%>
+      <%}%>
+</div>

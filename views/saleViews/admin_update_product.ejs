@@ -1,6 +1,6 @@
 <div class="row">
   <h1 style="text-align: center; color: #08A650"><%=title%></h1>
-  <h3 style="text-align: center;"><span style="color: red">Lưu ý:</span> Một khi sản phẩm/dòng sản phẩm được lưu lại, sẽ không thể xoá vì liên quan đến số liệu báo cáo và đặt hàng của Nhà phân phối. Sản phẩm sau khi được tạo chỉ có thể được <span style="color: green;">Kích hoạt</span> để Nhà phân phối có thể đặt mua, hoặc <span style="color: red;">Vô hiệu hoá</span> để ngăn nhà phân phối không được đặt mua thêm. Vậy nên, hết sức cẩn thận trong việc điền tên Dòng sản phẩm, Tên sản phẩm, ID sản phẩm để tránh sai sót!</h3>
+  <h3 style="text-align: center; color: red">Lưu ý: Server cấu hình thấp, hạn chế thay đổi ảnh sản phẩm! Nếu khi thay đổi ảnh sản phẩm không thành công, vui lòng thử lại trong vòng 10-15 phút! Không nên thay đổi liên tục trong thời gian ngắn!!!</h3>
   <div class="col-xs-12">
     <hr>
     <div class="row">
@@ -8,21 +8,7 @@
         <label for="">Dòng sản phẩm:</label>
       </div>
       <div class="col-xs-7 manager-field">
-        <form><div class="form-group">
-          <div class="input-group">
-          <div class="input-group-btn">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chọn dòng sản phẩm <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <%data.forEach(function(item){%>
-            <li><a href="#" class="product_line_name_picker"><%=item.productLineName%></a></li>
-          <%})%>
-          <li role="separator" class="divider"></li>
-          <li><a href="#" id="add_new_product_line_name">Thêm mới</a></li>
-        </ul>
-      </div><!-- /btn-group -->
-      <input type="text" class="form-control" id="product_line_name" disabled aria-label="...">
-    </div><!-- /input-group --></div>
-    </form>
+        <form><div class="form-group"><input class="form-control" type="text" name="productLine" disabled value="<%=data.productLine%>"></div></form>
       </div>
     </div>
     <div class="row">
@@ -30,7 +16,7 @@
         <label for="">Tên sản phẩm:</label>
       </div>
       <div class="col-xs-7 manager-field">
-        <form><div class="form-group"><input class="form-control" type="text" name="productName" placeholder="Nhập tên riêng để nhận biết sản phẩm (không được trùng với sản phẩm khác)"></div></form>
+        <form><div class="form-group"><input class="form-control" type="text" name="productName" disabled value="<%=data.productName%>"></div></form>
       </div>
     </div>
     <div class="row">
@@ -38,7 +24,7 @@
         <label for="">ID sản phẩm:</label>
       </div>
       <div class="col-xs-7 manager-field">
-        <form><div class="form-group"><input class="form-control" type="text" placeholder="ID của sản phẩm phải ngắn gọn và duy nhất (ví dụ: Patio-T-1ST)" name="productID"></div></form>
+        <form><div class="form-group"><input class="form-control" type="text" disabled value="<%=data.productId%>" name="productID"></div></form>
       </div>
     </div>
     <div class="row">
@@ -51,7 +37,7 @@
     </div>
     <div class="row">
       <div class="col-xs-3 col-xs-offset-4 manager-field">
-        <img id="preview_upload_image" class="img img-responsive img-rounded" src="" alt="" />
+        <img id="preview_upload_image" class="img img-responsive img-rounded" src="<%=data.productPicture%>" alt="" />
       </div>
     </div>
     <div class="row">
@@ -59,17 +45,19 @@
         <label for="">Thông số:</label>
       </div>
       <div class="col-xs-8" id="product_specs">
+        <%data.productSpecs.forEach(function(item){%>
         <div class="row">
           <div class="col-xs-2 manager-label manager-field">
             <a class="btn remove_product_spec"><span class="glyphicon glyphicon-minus-sign red" style="font-size: 24px;"></span></a>
           </div>
           <div class="col-xs-4 manager-field">
-            <form><div class="form-group"><input class="form-control" type="text" name="field" placeholder="Chỉ số"></div></form>
+            <form><div class="form-group"><input class="form-control" type="text" value="<%=item.field%>" name="field" placeholder="Chỉ số"></div></form>
           </div>
           <div class="col-xs-4 manager-field">
-            <form><div class="form-group"><input class="form-control" type="text" name="value" placeholder="Giá trị"></div></form>
+            <form><div class="form-group"><input class="form-control" type="text" value="<%=item.value%>" name="value" placeholder="Giá trị"></div></form>
           </div>
         </div>
+        <%});%>
         <div class="row" id="add_product">
           <div class="col-xs-2 manager-label manager-field">
             <a class="btn" id="add_product_spec"><span class="glyphicon glyphicon-plus-sign green" style="font-size: 24px;"></span></a>
@@ -88,13 +76,13 @@
         <label for="">Miêu tả sản phẩm:</label>
       </div>
       <div class="col-xs-7 manager-field">
-        <form><div class="form-group"><textarea id="product_description" class="form-control" type="text-area" rows="6" name="producDescription"></textarea></div></form>
+        <form><div class="form-group"><textarea id="product_description" class="form-control" type="text-area" rows="6" name="producDescription"><%=data.productDescription%></textarea></div></form>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-9 col-xs-offset-5 manager-field"><label id="validate_message"></label></div>
       <div class="col-xs-2 col-xs-offset-5 manager-field">
-        <button type="button" class="btn btn-primary save-new-product-button" name="update">Lưu</button>
+        <a type="button" class="btn btn-primary update-product-button" name="update">Lưu</a>
       </div>
       <div class="col-xs-2 manager-field">
         <a href="/admin/products" type="button" class="btn btn-danger cancel-new-manager-button" name="remove">Thoát</a>

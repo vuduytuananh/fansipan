@@ -1,0 +1,35 @@
+<div class="row">
+<%for(var i = 0; i< products.length; i++){%>
+      <%if(products[i] !== undefined){%>
+        <div class="col-sm-3 product_price_data">
+          <div class="thumbnail">
+              <div class="caption text-center <%if(products[i].state === 'Unavailable'){%>
+                bg-danger
+                <%};if(products[i].state === 'Activated'){%>
+                bg-success
+                <%};%>">
+                <label><%=products[i].productId%> - <%=products[i].productName%></label>
+                <label class="nodisplay"><%=products[i].id%></label>
+              </div>
+              <img src="<%=products[i].productPicture%>" alt="<%=products[i].productName%>" style="">
+              <div class="caption text-center <%if(products[i].state === 'Unavailable'){%>
+                bg-danger
+                <%};if(products[i].state === 'Activated'){%>
+                bg-success
+                <%};%>">
+                <div class="input-group">
+                <%for(var j= 0; j<policy.details.length;j++){%>
+                  <%if(String(policy.details[j].product_Id) === String(products[i].id)){%>
+                  <input class="form-control" type="number" name="productPrice" value="<%=policy.details[j].price%>" placeholder="Không dấu(e.g: 230000)">
+                  <%break;}else{if(j === policy.details.length - 1){%>
+                    <input class="form-control" type="number" name="productPrice" value="#novalue" placeholder="Không dấu(e.g: 230000)">
+                  <%}}%>
+                <%}%>
+                <span class="input-group-addon">VNĐ</span>
+                </div>
+              </div>
+          </div>
+        </div>
+        <%}%>
+      <%}%>
+</div>

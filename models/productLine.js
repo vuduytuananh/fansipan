@@ -13,6 +13,9 @@ module.exports = ProductLine;
 module.exports.getByName = function(name, callback){
   ProductLine.findOne({productLineName: name}, callback);
 }
+module.exports.getAllProductsLinesNames = function(callback){
+  ProductLine.find({},"productLineName", callback);
+}
 module.exports.updateByName = function(name,update, callback){
   ProductLine.findOneAndUpdate({productLineName: name}, update, callback);
 }
@@ -26,7 +29,7 @@ module.exports.getAllProducts = function(callback){
   ProductLine.find({}).populate({
     path: "products",
     model: "product",
-    select: "id productId productName productPicture"
+    select: "id productId productName productPicture state"
   }).exec(function(err,products){
       callback(err,products);
   });

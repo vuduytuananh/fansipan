@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" lang="en-US" prefix="og: http://ogp.me/ns#">
   <head>
-    <title>Ngoại thất Fansipan - Đại lí tại Hải Phòng</title>
+    <title>Ngoại thất Fansipan - Đại lí tại <%=data.province%></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Địa chỉ các nhà phân phối các sản phẩm ngoại thất như bàn ghế ngoài trời, bàn ghế cafe, bàn ghế sân vườn của Công ty cổ phần Ngoại thất Fansipan.">
     <link rel='shortcut icon' href='/images/favicon.ico' type='image/x-icon'/ >
 	<%- include("style-tags");%>
-
-  </head>
+	</head>
   <body>
     <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -35,38 +34,66 @@
 </nav>
 <section>
 <div class="container">
-  <h3 class="text-center" style="color: #08A650">Danh sách nhà phân phối tại Hải Phòng</h3>
+  <h1 class="text-center" style="color: #08A650">Danh sách nhà phân phối tại <%=data.province%></h1>
   <div class="row">
     <div class="col-md-10 col-md-offset-1 col-sm-12">
       <div class="embed-responsive embed-responsive-16by9" style="margin-top: 40px;">
-        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1usHV_Sowx2vJRAXSU-BWtulEgNs"></iframe>
+        <iframe src="<%=data.map%>"></iframe>
       </div>
     </div>
+    <%var middle = Math.floor(data.districts.length/2)%>
     <div class="col-md-5 col-sm-6 col-xs-12 col-md-offset-1">
       <ul style="margin-top: 20px;">
+        <%for(var i = 0; i < middle + 1; i++){%>
         <li>
-        <h5>Thành phố Hải Phòng</h5>
+        <h5><%=data.districts[i].district_name%></h5>
         <ul>
+        <%for(var j = 0; j < data.districts[i].retailers.length; j++){%>
         <li>
-          <p> Cửa hàng Tâm Phượng, 78, Quang Trung, Hồng Bàng, TP Hải Phòng</p>
-            <p><span class="glyphicon glyphicon-phone" role="mobile phone number"></span> 0904 064 155</p>
-            <p><span class="glyphicon glyphicon-phone" role="mobile phone number"></span> 0903 440 523</p>
+          <p><%=data.districts[i].retailers[j].nameAndAddress%></p>
+          <%for(var k = 0; k < data.districts[i].retailers[j].contacts.length; k++){%>
+            <%if(data.districts[i].retailers[j].contacts[k].type === "mobile phone number"){%>
+              <p><span class="glyphicon glyphicon-phone" role="mobile phone number"></span> <%=data.districts[i].retailers[j].contacts[k].value%></p>
+            <%}else{%>
+            <%if(data.districts[i].retailers[j].contacts[k].type === "telephone number"){%>
+              <p><span class="glyphicon glyphicon-phone-alt" role="mobile phone number"></span> <%=data.districts[i].retailers[j].contacts[k].value%></p>
+            <%}else{%>
+              <p><%=data.districts[i].retailers[j].contacts[k].value%></p>
+            <%}%>
+          <%}%>
+        <%}%>
         </li>
-        <li>
-          <p> Nội thất Ngô Gia</p>
-          <p> Cửa hàng 1: Số 75 Tô Hiệu, Lê Chân, TP Hải Phòng</p>
-          <p> Cửa hàng 2: Số 936 Trần Nhân Tông, Kiến An, TP Hải Phòng</p>
-          <p><span class="glyphicon glyphicon-phone-alt" role="telephone number"></span> 0313 548 543</p>
-          <p><span class="glyphicon glyphicon-phone-alt" role="telephone number"></span> 0313 611 558</p>
-          <p><span class="glyphicon glyphicon-phone" role="mobile phone number"></span> 0989 748 891</p>
-        </li>
+        <%}%>
         </ul>
         </li>
+        <%}%>
       </ul>
     </div>
     <div class="col-md-5 col-sm-6 col-xs-12">
       <ul style="margin-top: 20px;">
-
+        <%for(var i = middle + 1; i < data.districts.length; i++){%>
+        <li>
+        <h5><%=data.districts[i].district_name%></h5>
+        <ul>
+        <%for(var j = 0; j < data.districts[i].retailers.length; j++){%>
+        <li>
+          <p><%=data.districts[i].retailers[j].nameAndAddress%></p>
+          <%for(var k = 0; k < data.districts[i].retailers[j].contacts.length; k++){%>
+            <%if(data.districts[i].retailers[j].contacts[k].type === "mobile phone number"){%>
+              <p><span class="glyphicon glyphicon-phone" role="mobile phone number"></span> <%=data.districts[i].retailers[j].contacts[k].value%></p>
+            <%}else{%>
+            <%if(data.districts[i].retailers[j].contacts[k].type === "telephone number"){%>
+              <p><span class="glyphicon glyphicon-phone-alt" role="mobile phone number"></span> <%=data.districts[i].retailers[j].contacts[k].value%></p>
+            <%}else{%>
+              <p> <%=data.districts[i].retailers[j].contacts[k].value%></p>
+            <%}%>
+          <%}%>
+        <%}%>
+        </li>
+        <%}%>
+        </ul>
+        </li>
+        <%}%>
       </ul>
     </div>
     <br>

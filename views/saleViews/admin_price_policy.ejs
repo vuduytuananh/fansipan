@@ -1,0 +1,23 @@
+<div class="row">
+  <h1 style="text-align: center; color: #08A650"><%= right.title %></h1>
+  <div class="col-xs-12">
+    <a href="/admin/price-policy/add" type="button" class="btn btn-success" name="button"><span class="glyphicon glyphicon-plus-sign"></span>  Thêm chính sách giá</a>
+  </div>
+  <div class="col-xs-12">
+    <% data.forEach(function(item){ %>
+      <div class="row">
+        <div class="col-xs-11 col-xs-offset-1 manager-label manager-field">
+          <h3 class="yellow" style="text-align : left;"><%= item.name %></h3>
+        </div>
+      <%- include("each_policy", {details: item.details});%>
+        <div class="col-xs-1 col-xs-offset-1">
+          <a href = "/admin/price-policy/<%=item.id%>"type="button" class="btn btn-primary update-price-policy-button" name="update">Sửa</a>
+        </div>
+        <div class="col-xs-1">
+          <button type="button" class="btn btn-danger remove-price-policy-button" name="remove">Xoá</button>
+        </div>
+      </div>
+      <hr>
+    <%})%>
+  </div>
+</div>

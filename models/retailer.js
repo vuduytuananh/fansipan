@@ -26,25 +26,22 @@ var RetailerSchema = new Schema({
   email: {
     type: String
   },
-  lastMonthBalance:{
-    date:{
-      type: Date,
-      require: true
-    },
-    amount:{
-      type: Number,
-      require: true
-    }
-  },
   currentBalance: {
-    date:{
-      type: Date,
-      require: true
-    },
-    amount:{
-      type: Number,
-      require: true
-    }
+    type: Number
+  },
+  latestOrder: {
+    type: Date
+  },
+  averagePerWeek: {
+    type: Number
+  },
+  last4Weeks: {
+    type: Number
+  },
+  status:{
+    type: String,
+    required: true,
+    default: "Active"
   },
   applicable_price_policies:[Schema.Types.ObjectId]
 });
@@ -72,7 +69,11 @@ module.exports.getRetailerByFRID = function(FRID, callback){
   Retailer.findOne({FRID: FRID}, callback);
 }
 module.exports.getRetailerById = function(id, callback){
-  Retailer.findById(id, callback);
+  Retailer.findById(id).populate({
+    path: "applicable_price_policies",
+    model: "price_policy",
+    select: "name"
+  }).exec(callback);
 }
 module.exports.getRetailerByIdWithProj = function(id, proj, callback){
   Retailer.findById(id, proj, callback);

@@ -15,6 +15,11 @@ var provinceSchema = new Schema({
     unique: true,
     required: true,
   },
+  map: {
+    type: String,
+    unique: true,
+    required: true
+  },
   districts: [districtSchema]
 });
 var Province = mongoose.model("province",provinceSchema);
@@ -28,4 +33,14 @@ module.exports.getAllRetailers = function(callback){
   }).select("province districts").exec(function(err, provinces){
     callback(err, provinces);
   });
+}
+module.exports.getAllProvinces = function(callback){
+  Province.find({}).select("id province").exec(callback);
+}
+module.exports.getProvinceById = function(id, callback){
+  Province.findById(id).populate({
+    path: 'districts.retailers',
+    model: "retailer",
+    select: "id nameAndAddress contacts"
+  }).exec(callback);
 }

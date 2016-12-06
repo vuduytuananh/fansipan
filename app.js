@@ -50,7 +50,7 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   // cookie:{
-  //   secure: "auto"
+  //   secure: "true"
   // },
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
